@@ -1,18 +1,62 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from "node:url";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import vue from "@vitejs/plugin-vue";
+import AutoImport from "unplugin-auto-import/vite";
+import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
+import Components from "unplugin-vue-components/vite";
+import { defineConfig, loadEnv } from "vite";
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
-})
+import VueDevTools from "vite-plugin-vue-devtools";
+
+export default defineConfig(({ mode }) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+
+  let plugins = [
+    vue({ script: { defineModel: true, propsDestructure: true } }),
+    VueDevTools(),
+    AutoImport({
+      dts: "src/shared/types/auto-imports.d.ts",
+      imports: [
+        "vue",
+        "pinia",
+        "vitest",
+        "vue-router",
+        {
+          "naive-ui": [
+            "useDialog",
+            "useMessage",
+            "useNotification",
+            "useLoadingBar",
+          ],
+        },
+      ],
+      eslintrc: {
+        enabled: true,
+      },
+    }),
+    Components({
+      dirs: [],
+      dts: "src/shared/types/components.d.ts",
+      resolvers: [NaiveUiResolver()],
+    }),
+  ];
+
+  return {
+    plugins,
+    server: {
+      port: 5173,
+    },
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+        helpers: fileURLToPath(new URL("./src/helpers", import.meta.url)),
+      },
+    },
+    test: {
+      globals: true,
+      mockReset: true,
+      environment: "jsdom",
+      setupFiles: fileURLToPath(new URL("./vitestSetup.ts", import.meta.url)),
+    },
+  };
+});
