@@ -44,9 +44,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins,
     base: "/wedding_site_visit/",
-    server: {
-      port: 5173,
-    },
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
