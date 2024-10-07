@@ -1,12 +1,101 @@
 <script setup lang="ts">
+import { formatDuration, intervalToDuration, getUnixTime } from "date-fns";
 import { PageLayout } from "@/shared/ui";
 </script>
 
 <template>
   <page-layout no-border>
     <div class="main">
-      <div class="main__welcome">
-        <div class="main__welcome-bg"></div>
+      <div class="main__title">
+        <div class="main__title-text">Николай</div>
+        <div class="main__title-text">Валерия</div>
+      </div>
+
+      <div class="main__description">
+        <div class="main__description-text">
+          ПРИГЛАШАЕМ ВАС РАЗДЕЛИТЬ
+
+          <br />
+          С НАМИ САМЫЙ СЧАСТЛИВЫЙ ДЕНЬ
+        </div>
+      </div>
+
+      <div class="main__and">
+        <div class="main__and-text">&</div>
+      </div>
+
+      <div class="main__date">
+        <div class="main__date-week date">понедельник</div>
+        <div class="main__date-number">
+          <div class="main__date-number-label">ноябръ</div>
+          <div class="main__date-number-text">11</div>
+        </div>
+        <div class="main__date-time date">
+          <div class="main__data-time-text">13:10</div>
+        </div>
+      </div>
+
+      <div class="main__img">
+        <img class="main__img-bg" src="../../assets/flowers.png" />
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="info__bg">
+        <div class="card">
+          <div class="card__bg">
+            <div class="card__title">
+              Дорогой <br />
+              Гость!
+            </div>
+
+            <div class="card__text">
+              Мы рады сообщить Вам, что 11.11.2024 состоится самое главное
+              торжество в нашей жизни - день нашей свадьбы! <br />
+              Приглашаем Вас разделить с нами радость этого незабываемого дня.
+              <br />
+              11.11.2024 в 13:10
+            </div>
+
+            <div class="card__title">Меню</div>
+
+            <div class="card__text">
+              Меню разнообразно, поэтому сообщите нам заранее, если у вас есть
+              какие-либо предпочтения или диетические ограничения. После
+              подтверждения вы сможете пройти опрос о своих вкусовых
+              предпочтениях и напитках.
+            </div>
+
+            <div class="card__title">Пожелания по подаркам</div>
+
+            <div class="card__text">
+              Ваше присутствие в день нашей свадьбы - самый значимый подарок для
+              нас!
+            </div>
+
+            <div class="card__title">Подтверждение</div>
+
+            <div class="card__text">
+              Пожалуйста подтвердите свое присутствие до 11.11.2024
+            </div>
+
+            <div class="card__title">Фото</div>
+
+            <div class="card__text">
+              Опубликуйте фото дня нашей свадьбы в соц.сетях с хештегом #
+            </div>
+
+            <div class="card__title">Дресс-код</div>
+
+            <div class="card__text">
+              У нас нет строгого дресс-кода и мы будем рады видеть вас в любом
+              наряде. Но нам будет приятно, если вы выберете образ, подходящий
+              для праздничного вечера.
+            </div>
+
+            <div class="card__title">Ждем Вас!</div>
+          </div>
+        </div>
       </div>
     </div>
   </page-layout>
@@ -14,86 +103,176 @@ import { PageLayout } from "@/shared/ui";
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.cdnfonts.com/css/adine-kirnberg");
 
-.texts {
-  top: 40%;
-  width: 100%;
-  height: 60%;
-  position: relative;
+.card {
+  padding: 0 30px;
 
-  animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s
-    backwards;
+  &__bg {
+    background: rgba(255, 255, 255, 0.91);
+    max-width: 550px;
+    padding: 30px;
+  }
 
-  &__box {
-    position: relative;
-    margin: auto;
-    height: 10%;
-    transition: all 0.5s ease-out 0s;
+  &__title {
+    font-size: 50px;
+    font-family: BickhamScript3;
+    text-align: center;
+    line-height: 1.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+
+  &__text {
+    font-size: 20px;
+    font-family: "Cormorant Infant", sans-serif;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  &__description {
+    font-family: "Cormorant Infant", sans-serif;
+    text-align: center;
+    font-size: 50px;
   }
 }
+.info {
+  background-image: url("../../assets/bg.png");
 
+  &__bg {
+    background-image: url("../../assets/bg_flowers.png");
+    background-size: 428px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.date {
+  border-top: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
+  padding: 5px 0;
+  width: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .main {
   position: relative;
 
-  &__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__date {
     position: absolute;
+    top: 60%;
+    display: flex;
+    align-items: center;
+    gap: 0 40px;
 
-    height: 100%;
-    background-repeat: no-repeat;
+    animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s
+      backwards;
 
-    width: 514px;
-    margin-right: -257px;
-    right: 50%;
+    font-size: 14px;
+    line-height: inherit;
+    letter-spacing: 0.1em;
+    text-align: center;
+    font-family: "Cormorant Infant", sans-serif;
+    color: rgb(0, 0, 0) !important;
+
+    &-number {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &-label {
+        margin-top: -35px;
+      }
+      &-text {
+        padding-top: 10px;
+        font-size: 33px;
+      }
+    }
   }
 
-  &__welcome {
-    animation: appearHeart 2s 1 cubic-bezier(0.215, 0.61, 0.355, 1) 0s backwards;
-    margin: auto;
+  &__and {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-repeat: no-repeat;
+    top: 21.5%;
+
+    &-text {
+      font-size: 171.29pt;
+      font-family: "Adine Kirnberg", sans-serif;
+      color: rgb(239, 236, 207);
+      line-height: inherit;
+      letter-spacing: 0em;
+      text-align: center;
+      margin-left: -30px;
+      margin-right: -30px;
+
+      animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1)
+        0.5s backwards;
+    }
+  }
+
+  &__title {
+    position: absolute;
+    top: 30%;
+
+    z-index: 1;
+
+    &-text {
+      animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1)
+        0.5s backwards;
+
+      font-size: 40.8226pt;
+      font-family: Aquarelle;
+      color: rgb(0, 0, 0);
+      line-height: inherit;
+      letter-spacing: 0em;
+      text-align: center;
+      margin-left: 60px;
+      margin-right: 60px;
+    }
+  }
+
+  &__description {
+    position: absolute;
+    top: 50%;
+
+    z-index: 1;
+
+    &-text {
+      font-family: "Cormorant Infant", sans-serif;
+      color: rgb(0, 0, 0);
+      line-height: inherit;
+      letter-spacing: 0.1em;
+      text-align: center;
+
+      animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1)
+        0.5s backwards;
+    }
+  }
+
+  &__img {
+    animation: appearHeart 2s 1 cubic-bezier(0.215, 0.61, 0.355, 1) 0s backwards;
 
     &-bg {
-      background-image: url("../assets/flowers.png");
-      transform: scale(1.35) rotate(0deg);
-      -webkit-transform: scale(1.35) rotate(0deg);
-      -moz-transform: scale(1.35) rotate(0deg);
-      -o-transform: scale(1.35) rotate(0deg);
-      -ms-transform: scale(1.35) rotate(0deg);
-      left: 0.5%;
-      top: 15.5%;
-      margin: auto;
-      top: 10%;
       position: relative;
-      width: 90%;
-      height: 72%;
       background-repeat: no-repeat;
       text-align: center;
       font-family: "Lobster", cursive;
       background-size: contain;
       background-position: 50%;
-
+      width: 100%;
       transition: all 0.1s ease-out 0s;
     }
   }
-}
-
-.description {
-  font-size: 8.56452pt;
-  font-family: "Cormorant Infant", serif;
-  font-weight: 300;
-  font-style: normal;
-
-  color: rgb(0, 0, 0);
-  line-height: inherit;
-  letter-spacing: 0.1em;
-  text-align: center;
-  margin-left: -10px;
-  margin-right: -10px;
-
-  transition: all 0.1s ease-out 0s;
 }
 
 @keyframes appearHeart {

@@ -16,8 +16,6 @@ const positionContent = computed(() =>
 <template>
   <n-layout :position="'absolute'" :has-sider="isDesktop">
     <n-layout :position="positionContent">
-      <n-layout-header class="header" bordered>header</n-layout-header>
-
       <n-layout
         ref="contentRef"
         class="flex-container top"
@@ -32,18 +30,12 @@ const positionContent = computed(() =>
         </div>
 
         <n-layout-footer v-if="isDesktop" bordered> footer </n-layout-footer>
-
-        <app-version />
       </n-layout>
     </n-layout>
   </n-layout>
 </template>
 
 <style lang="scss" scoped>
-.top {
-  top: 65px;
-}
-
 .flex-container {
   & :deep(.n-scrollbar-content) {
     min-height: 100%;

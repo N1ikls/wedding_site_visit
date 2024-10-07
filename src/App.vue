@@ -18,3 +18,15 @@ import { ruRU, dateRuRU } from "naive-ui";
     </n-notification-provider>
   </n-config-provider>
 </template>
+
+<style lang="scss">
+@font-face {
+  font-family: "Aquarelle";
+  src: url("./assets/Aquarelle_500.ttf");
+}
+
+@font-face {
+  font-family: "BickhamScript3";
+  src: url("./assets/bickhamscriptthree.ttf");
+}
+</style>
