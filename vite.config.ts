@@ -47,14 +47,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
-        helpers: fileURLToPath(new URL("./src/helpers", import.meta.url)),
       },
-    },
-    test: {
-      globals: true,
-      mockReset: true,
-      environment: "jsdom",
-      setupFiles: fileURLToPath(new URL("./vitestSetup.ts", import.meta.url)),
     },
   };
 });
