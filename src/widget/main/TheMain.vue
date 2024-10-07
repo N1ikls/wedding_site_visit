@@ -76,7 +76,7 @@ import { PageLayout } from "@/shared/ui";
             <div class="card__title">Подтверждение</div>
 
             <div class="card__text">
-              Пожалуйста подтвердите свое присутствие до 11.11.2024
+              Пожалуйста подтвердите свое присутствие до 10.11.2024
             </div>
 
             <div class="card__title">Фото</div>
@@ -96,6 +96,35 @@ import { PageLayout } from "@/shared/ui";
             <div class="card__title">Ждем Вас!</div>
           </div>
         </div>
+
+        <div class="card pad-t-3">
+          <div class="card__bg">
+            <div class="card__title">Свадебное расписание</div>
+
+            <div class="card__text">
+              <div class="card__text-time">16:30</div>
+
+              <div class="card__text-title">Сбор гостей | Фуршет</div>
+              <span>
+                Просим взять с собой хорошее настроение и свои улыбки
+              </span>
+            </div>
+
+            <div class="card__text">
+              <div class="card__text-time">17:00</div>
+              <div class="card__text-title">Банкет</div>
+              <span> Время вкусной еды, танцев и развлечений </span>
+            </div>
+
+            <div class="card__text">
+              <div class="card__text-time">23:00</div>
+              <div class="card__text-title">Завершение банкета</div>
+              <span>
+                К сожалению, даже такой прекрасный вечер может закончиться
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </page-layout>
@@ -105,6 +134,9 @@ import { PageLayout } from "@/shared/ui";
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
 @import url("https://fonts.cdnfonts.com/css/adine-kirnberg");
 
+.pad-t-3 {
+  padding: 30px !important;
+}
 .card {
   padding: 0 30px;
 
@@ -130,6 +162,15 @@ import { PageLayout } from "@/shared/ui";
     font-family: "Cormorant Infant", sans-serif;
     text-align: center;
     padding-bottom: 20px;
+
+    &-time {
+      font-size: 30px;
+    }
+
+    &-title {
+      font-size: 30px;
+      font-weight: 600;
+    }
   }
 
   &__description {
@@ -147,6 +188,7 @@ import { PageLayout } from "@/shared/ui";
     padding-top: 70px;
     padding-bottom: 70px;
 
+    flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
