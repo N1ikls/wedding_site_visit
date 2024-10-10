@@ -122,12 +122,6 @@ const sendHandler = () => {
               предпочтениях и напитках.
             </div>
 
-            <div class="card__title">Фото</div>
-
-            <div class="card__text">
-              Опубликуйте фото дня нашей свадьбы в соц.сетях с хештегом #
-            </div>
-
             <div class="card__title">Дресс-код</div>
 
             <div class="card__text">
@@ -140,20 +134,18 @@ const sendHandler = () => {
           </div>
         </div>
 
-        <!-- <div class="card pad-t-3">
+        <div class="card pad-t-3">
           <div class="card__bg">
             <div class="card__title">Свадебное расписание</div>
 
             <div class="card__text">
               <div class="card__text-time">16:30</div>
 
-              <div class="card__text-title">Сбор гостей | Фуршет</div>
-              <span>
-                Просим взять с собой хорошее настроение и свои улыбки
-              </span>
+              <div class="card__text-title">Банкет Нева Холл</div>
+              <span> Адрес: Сапёрный пер., 5, Санкт-Петербург, 191014 </span>
             </div>
 
-            <div class="card__text">
+            <!-- <div class="card__text">
               <div class="card__text-time">17:00</div>
               <div class="card__text-title">Банкет</div>
               <span> Время вкусной еды, танцев и развлечений </span>
@@ -165,9 +157,9 @@ const sendHandler = () => {
               <span>
                 К сожалению, даже такой прекрасный вечер может закончиться
               </span>
-            </div>
+            </div> -->
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
 
@@ -279,7 +271,7 @@ const sendHandler = () => {
     <yandex-map
       :settings="{
         location: {
-          center: [30.357002, 59.940483],
+          center: [30.364871, 59.945392],
           zoom: 16,
         },
       }"
@@ -290,7 +282,10 @@ const sendHandler = () => {
       <YandexMapDefaultFeaturesLayer />
 
       <yandex-map-default-marker
-        :settings="{ coordinates: [30.357002, 59.940483], title: 'Нева холл' }"
+        :settings="{
+          coordinates: [30.364871, 59.945392],
+          title: 'Дворец бракосочетания № 2',
+        }"
       />
     </yandex-map>
   </page-layout>
