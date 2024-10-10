@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { formatDuration, intervalToDuration, getUnixTime } from "date-fns";
+import {
+  YandexMap,
+  YandexMapDefaultFeaturesLayer,
+  YandexMapDefaultMarker,
+  YandexMapDefaultSchemeLayer,
+} from "vue-yandex-maps";
+
 import { PageLayout } from "@/shared/ui";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useFirestore, useDocument } from "vuefire";
@@ -114,19 +120,6 @@ const sendHandler = () => {
               какие-либо предпочтения или диетические ограничения. После
               подтверждения вы сможете пройти опрос о своих вкусовых
               предпочтениях и напитках.
-            </div>
-
-            <div class="card__title">Пожелания по подаркам</div>
-
-            <div class="card__text">
-              Ваше присутствие в день нашей свадьбы - самый значимый подарок для
-              нас!
-            </div>
-
-            <div class="card__title">Подтверждение</div>
-
-            <div class="card__text">
-              Пожалуйста подтвердите свое присутствие до 10.11.2024
             </div>
 
             <div class="card__title">Фото</div>
@@ -280,6 +273,26 @@ const sendHandler = () => {
         </n-form>
       </div>
     </div>
+
+    <div class="location">Локация</div>
+
+    <yandex-map
+      :settings="{
+        location: {
+          center: [30.357002, 59.940483],
+          zoom: 16,
+        },
+      }"
+      width="100%"
+      height="500px"
+    >
+      <yandex-map-default-scheme-layer />
+      <YandexMapDefaultFeaturesLayer />
+
+      <yandex-map-default-marker
+        :settings="{ coordinates: [30.357002, 59.940483], title: 'Нева холл' }"
+      />
+    </yandex-map>
   </page-layout>
 </template>
 
@@ -329,6 +342,18 @@ const sendHandler = () => {
 }
 .pad-t-3 {
   padding: 30px !important;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  font-size: 36px;
+  font-weight: 500;
+  font-family: "Cormorant Infant", sans-serif;
+
+  padding-bottom: 20px;
 }
 .card {
   padding: 0 30px;
@@ -410,8 +435,13 @@ const sendHandler = () => {
     align-items: center;
     gap: 0 40px;
 
+    z-index: 1;
     animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s
       backwards;
+
+    // @media screen and (width < 500px) {
+    //   top: 70%;
+    // }
 
     font-size: 14px;
     line-height: inherit;
@@ -432,6 +462,10 @@ const sendHandler = () => {
       &-text {
         padding-top: 10px;
         font-size: 33px;
+
+        // @media screen and (width < 700px) {
+        //   font-size: 22px;
+        // }
       }
     }
   }
@@ -447,8 +481,14 @@ const sendHandler = () => {
       line-height: inherit;
       letter-spacing: 0em;
       text-align: center;
-      margin-left: -30px;
-      margin-right: -30px;
+
+      // @media screen and (width < 700px) {
+      //   font-size: 150pt;
+      // }
+
+      // @media screen and (width < 500px) {
+      //   font-size: 120pt;
+      // }
 
       animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1)
         0.5s backwards;
@@ -473,6 +513,10 @@ const sendHandler = () => {
       text-align: center;
       margin-left: 60px;
       margin-right: 60px;
+
+      // @media screen and (width < 700px) {
+      //   font-size: 30pt;
+      // }
     }
   }
 
@@ -489,6 +533,10 @@ const sendHandler = () => {
       letter-spacing: 0.1em;
       text-align: center;
 
+      // @media screen and (width < 700px) {
+      //   font-size: 10px;
+      // }
+
       animation: appearHeartRevers 2.5s 1 cubic-bezier(0.215, 0.61, 0.355, 1)
         0.5s backwards;
     }
@@ -504,7 +552,7 @@ const sendHandler = () => {
       font-family: "Lobster", cursive;
       background-size: contain;
       background-position: 50%;
-      width: 100%;
+
       transition: all 0.1s ease-out 0s;
     }
   }
