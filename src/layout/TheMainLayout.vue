@@ -29,7 +29,9 @@ const positionContent = computed(() =>
           </n-layout-content>
         </div>
 
-        <n-layout-footer v-if="isDesktop" bordered> footer </n-layout-footer>
+        <n-layout-footer class="footer">
+          МЫ БУДЕМ СЧАСТЛИВЫ ВИДЕТЬ ВАС!
+        </n-layout-footer>
       </n-layout>
     </n-layout>
   </n-layout>
@@ -52,7 +54,14 @@ const positionContent = computed(() =>
   padding: 0 24px;
   border-bottom: 1px solid rgb(239, 239, 245);
 }
-
+.footer {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 42px;
+  font-family: "Cormorant Infant", sans-serif;
+  font-weight: 300;
+}
 .n-layout-footer {
   background: #ffffff !important;
   padding: 24px;

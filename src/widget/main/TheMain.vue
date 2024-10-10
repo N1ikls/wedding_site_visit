@@ -1,6 +1,56 @@
 <script setup lang="ts">
 import { formatDuration, intervalToDuration, getUnixTime } from "date-fns";
 import { PageLayout } from "@/shared/ui";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { useFirestore, useDocument } from "vuefire";
+import type { FormInst, FormValidationError } from "naive-ui";
+const db = useFirestore();
+const message = useMessage();
+
+const formRef = ref<FormInst | null>(null);
+const loading = ref(false);
+const data = useDocument(doc(collection(db, "wedding"), "id"));
+
+const formValue = ref({
+  fio: "",
+  presence: "Я приду / Мы придем",
+  drinks: [],
+  twoDay: "Да",
+});
+
+const rules = {
+  fio: {
+    required: true,
+    message: "Обязательное поле",
+  },
+};
+
+const sendHandler = () => {
+  formRef.value?.validate(
+    async (errors: Array<FormValidationError> | undefined) => {
+      if (
+        !errors &&
+        data.value &&
+        data.value.items &&
+        Array.isArray(data.value!.items)
+      ) {
+        loading.value = true;
+
+        await setDoc(doc(collection(db, "wedding"), "id"), {
+          items: data.value!.items.concat({ ...formValue.value }),
+        });
+
+        loading.value = false;
+
+        message.success("Будем вас ждать!");
+
+        return;
+      }
+
+      message.error("Заполните обязательное поле");
+    }
+  );
+};
 </script>
 
 <template>
@@ -97,7 +147,7 @@ import { PageLayout } from "@/shared/ui";
           </div>
         </div>
 
-        <div class="card pad-t-3">
+        <!-- <div class="card pad-t-3">
           <div class="card__bg">
             <div class="card__title">Свадебное расписание</div>
 
@@ -124,16 +174,159 @@ import { PageLayout } from "@/shared/ui";
               </span>
             </div>
           </div>
-        </div>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="card pad-t-3 form">
+      <div class="form__title">
+        Подтвердите, пожалуйста, cвоё присутствие на торжестве
+      </div>
+
+      <div class="form__flex">
+        <div class="form__text">Мы будем ждать от вас ответ до 10/11/2024</div>
+
+        <n-form ref="formRef" :model="formValue" :rules="rules">
+          <n-form-item
+            class="form-item"
+            path="presence"
+            label="Присутствие на торжестве"
+          >
+            <n-radio-group size="large" v-model:value="formValue.presence">
+              <n-space vertical>
+                <n-radio
+                  class="radio"
+                  label="Я приду / Мы придем"
+                  value="Я приду / Мы придем"
+                />
+                <n-radio
+                  class="radio"
+                  label="Прийти не получится"
+                  value="Прийти не получится"
+                />
+                <n-radio
+                  class="radio"
+                  label="Буду со своей парой (+1)"
+                  value="Буду со своей парой (+1)"
+                />
+              </n-space>
+            </n-radio-group>
+          </n-form-item>
+
+          <n-form-item class="form-item" path="fio" label="Имя и Фамилия">
+            <div class="form-item__column">
+              <span>
+                если вы будете с парой или семьей, то внесите все имена
+              </span>
+              <n-input v-model:value="formValue.fio" />
+            </div>
+          </n-form-item>
+
+          <n-form-item
+            class="form-item"
+            path="drinks"
+            label="Предпочтения по напиткам"
+          >
+            <div class="form-item__column">
+              <div style="padding-bottom: 10px">
+                можно выбрать несколько вариантов
+              </div>
+              <n-checkbox-group size="large" v-model:value="formValue.drinks">
+                <n-space vertical>
+                  <n-checkbox class="checkbox" value="Вино" label="Вино" />
+                  <n-checkbox class="checkbox" value="Виски" label="Виски" />
+                  <n-checkbox class="checkbox" value="Водка" label="Водка" />
+                  <n-checkbox
+                    class="checkbox"
+                    value="Шампанское"
+                    label="Шампанское"
+                  />
+                  <n-checkbox
+                    class="checkbox"
+                    value="Что-нибудь безалкогольное"
+                    label="Что-нибудь безалкогольное"
+                  />
+                </n-space>
+              </n-checkbox-group>
+            </div>
+          </n-form-item>
+
+          <n-form-item
+            class="form-item"
+            path="twoDay"
+            label="Присутствие на втором дне"
+          >
+            <n-radio-group size="large" v-model:value="formValue.twoDay">
+              <n-space vertical>
+                <n-radio class="radio" label="Я приду / Мы придем" value="Да" />
+                <n-radio
+                  class="radio"
+                  label="Прийти не получится"
+                  value="Нет"
+                />
+              </n-space>
+            </n-radio-group>
+          </n-form-item>
+
+          <n-button
+            strong
+            secondary
+            :loading="loading"
+            size="large"
+            @click="sendHandler"
+          >
+            Отправить
+          </n-button>
+        </n-form>
       </div>
     </div>
   </page-layout>
 </template>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
-@import url("https://fonts.cdnfonts.com/css/adine-kirnberg");
+.n-button {
+  text-transform: uppercase;
+}
+.checkbox {
+  align-items: center;
+  &:deep(.n-checkbox__label) {
+    font-size: 18px;
+  }
+}
+.radio {
+  &:deep(.n-radio__label) {
+    font-size: 18px;
+  }
 
+  &:deep(.n-radio__dot-wrapper) {
+    padding-bottom: 6px;
+  }
+}
+.form-item {
+  &:deep(.n-form-item-label) {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  width: 100%;
+}
+.form {
+  font-family: "Cormorant Infant", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__title {
+    font-size: 36px;
+
+    font-weight: 500;
+  }
+  &__text {
+    padding-top: 30px;
+    font-size: 26px;
+    padding-bottom: 30px;
+  }
+}
 .pad-t-3 {
   padding: 30px !important;
 }
