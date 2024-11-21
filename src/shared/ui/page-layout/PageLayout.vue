@@ -80,7 +80,6 @@ const isCardBody = computed(
 }
 .m-page-layout {
   @extend %flex;
-  padding: 12px;
   height: 100%;
   flex-direction: column;
   background-color: #fff;

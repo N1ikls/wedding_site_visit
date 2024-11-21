@@ -81,13 +81,13 @@ const sendHandler = () => {
       </div>
 
       <div class="main__date">
-        <div class="main__date-week date">понедельник</div>
+        <div class="main__date-week date">суббота</div>
         <div class="main__date-number">
-          <div class="main__date-number-label">ноябръ</div>
-          <div class="main__date-number-text">11</div>
+          <div class="main__date-number-label">январь</div>
+          <div class="main__date-number-text">4</div>
         </div>
         <div class="main__date-time date">
-          <div class="main__data-time-text">13:10</div>
+          <div class="main__data-time-text">16:30</div>
         </div>
       </div>
 
@@ -106,11 +106,9 @@ const sendHandler = () => {
             </div>
 
             <div class="card__text">
-              Мы рады сообщить Вам, что 11.11.2024 состоится самое главное
+              Мы рады сообщить Вам, что 4.01.2025 состоится самое главное
               торжество в нашей жизни - день нашей свадьбы! <br />
               Приглашаем Вас разделить с нами радость этого незабываемого дня.
-              <br />
-              11.11.2024 в 13:10
             </div>
 
             <div class="card__title">Меню</div>
@@ -139,14 +137,14 @@ const sendHandler = () => {
             <div class="card__title">Свадебное расписание</div>
 
             <div class="card__text">
-              <div class="card__text-time">16:30</div>
+              <div class="card__text-time">16:00</div>
 
-              <div class="card__text-title">Банкет Нева Холл</div>
-              <span> Адрес: Сапёрный пер., 5, Санкт-Петербург, 191014 </span>
+              <div class="card__text-title">Фуршет</div>
+              <span> Адрес: ул. Степанова, 50А, станица Днепровская </span>
             </div>
 
-            <!-- <div class="card__text">
-              <div class="card__text-time">17:00</div>
+            <div class="card__text">
+              <div class="card__text-time">16:30</div>
               <div class="card__text-title">Банкет</div>
               <span> Время вкусной еды, танцев и развлечений </span>
             </div>
@@ -157,7 +155,7 @@ const sendHandler = () => {
               <span>
                 К сожалению, даже такой прекрасный вечер может закончиться
               </span>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -169,7 +167,7 @@ const sendHandler = () => {
       </div>
 
       <div class="form__flex">
-        <div class="form__text">Мы будем ждать от вас ответ до 10/11/2024</div>
+        <div class="form__text">Мы будем ждать от вас ответ до 20/12/2024</div>
 
         <n-form ref="formRef" :model="formValue" :rules="rules">
           <n-form-item
