@@ -87,7 +87,7 @@ const sendHandler = () => {
           <div class="main__date-number-text">4</div>
         </div>
         <div class="main__date-time date">
-          <div class="main__data-time-text">16:30</div>
+          <div class="main__data-time-text">16:00</div>
         </div>
       </div>
 
@@ -269,7 +269,7 @@ const sendHandler = () => {
     <yandex-map
       :settings="{
         location: {
-          center: [30.364871, 59.945392],
+          center: [38.806169, 45.619262],
           zoom: 16,
         },
       }"
@@ -281,8 +281,8 @@ const sendHandler = () => {
 
       <yandex-map-default-marker
         :settings="{
-          coordinates: [30.364871, 59.945392],
-          title: 'Дворец бракосочетания № 2',
+          coordinates: [38.806169, 45.619262],
+          title: 'Ресторан Якорь',
         }"
       />
     </yandex-map>
