@@ -31,7 +31,29 @@ const rules = {
   },
 };
 
+const setData = <T>(value: T, key: string) => {
+  if (!value || !key) return;
+
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+const getData = <T>(key: string) => {
+  if (!key) return null;
+
+  const data = JSON.parse(localStorage.getItem(key) || "null");
+
+  return data;
+};
+
+const isSend = ref(getData("send") || false);
+
 const sendHandler = () => {
+  if (isSend.value) {
+    message.warning("Вы уже заполняли форму ранее");
+    return;
+  }
+
+  console.log(Array.isArray(data.value!.items));
   formRef.value?.validate(
     async (errors: Array<FormValidationError> | undefined) => {
       if (
@@ -49,6 +71,10 @@ const sendHandler = () => {
         loading.value = false;
 
         message.success("Будем вас ждать!");
+
+        setData(true, "send");
+
+        isSend.value = true;
 
         return;
       }
@@ -87,7 +113,7 @@ const sendHandler = () => {
           <div class="main__date-number-text">4</div>
         </div>
         <div class="main__date-time date">
-          <div class="main__data-time-text">16:00</div>
+          <div class="main__data-time-text">15:30</div>
         </div>
       </div>
 
@@ -137,10 +163,18 @@ const sendHandler = () => {
             <div class="card__title">Свадебное расписание</div>
 
             <div class="card__text">
-              <div class="card__text-time">16:00</div>
+              <div class="card__text-time">15:30</div>
 
               <div class="card__text-title">Фуршет</div>
               <span> Адрес: ул. Степанова, 50А, станица Днепровская </span>
+            </div>
+
+            <div class="card__text">
+              <div class="card__text-time">16:00</div>
+
+              <div class="card__text-title">Церемония</div>
+
+              <span> Окутайте себя магией волшебства </span>
             </div>
 
             <div class="card__text">
@@ -217,7 +251,7 @@ const sendHandler = () => {
               <n-checkbox-group size="large" v-model:value="formValue.drinks">
                 <n-space vertical>
                   <n-checkbox class="checkbox" value="Вино" label="Вино" />
-                  <n-checkbox class="checkbox" value="Виски" label="Виски" />
+                  <n-checkbox class="checkbox" value="Коньяк" label="Коньяк" />
                   <n-checkbox class="checkbox" value="Водка" label="Водка" />
                   <n-checkbox
                     class="checkbox"
@@ -244,7 +278,7 @@ const sendHandler = () => {
                 <n-radio class="radio" label="Я приду / Мы придем" value="Да" />
                 <n-radio
                   class="radio"
-                  label="Прийти не получится"
+                  label="Прийти не получится (но преползу)"
                   value="Нет"
                 />
               </n-space>
