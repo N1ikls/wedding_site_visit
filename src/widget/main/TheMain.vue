@@ -315,7 +315,7 @@ const sendHandler = () => {
 
       <yandex-map-default-marker
         :settings="{
-          coordinates: [38.806169, 45.619262],
+          coordinates: [38.8063, 45.619],
           title: 'Ресторан Якорь',
         }"
       />
